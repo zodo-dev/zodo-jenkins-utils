@@ -2,6 +2,7 @@ package dev.zodo.devops.jenkins.utils.kubernetes;
 
 
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -11,9 +12,12 @@ import java.util.List;
 
 @Setter
 @Accessors(prefix = "", fluent = true)
+@Data(staticConstructor = "of")
 public class PodTemplate implements BuildString {
+    boolean sortByName;
+
     @FieldProperty
-    final String inheritFrom;
+    String inheritFrom = "default";
 
     @FieldProperty
     @Setter(AccessLevel.NONE)
@@ -65,26 +69,22 @@ public class PodTemplate implements BuildString {
 
     String label = "POD_LABEL";
 
-    PodTemplate() {
-        this("default");
+    public PodTemplate container(Container container) {
+        if (containers == null) {
+            containers = new ArrayList<>();
+        }
+        containers.add(container.sortByName(sortByName));
+        return this;
     }
 
-    PodTemplate(String inheritFrom) {
-        this.inheritFrom = inheritFrom;
-    }
-
-    public Container container(String name) {
+    public Container useContainer(String name) {
         if (containers == null) {
             containers = new ArrayList<>();
         }
         return containers.stream()
                 .filter(cb -> cb.name.equalsIgnoreCase(name))
                 .findAny()
-                .orElseGet(() -> {
-                    Container container = new Container(name);
-                    containers.add(container);
-                    return container;
-                });
+                .orElse(null);
     }
 
     public PodTemplate volume(Volume volume) {

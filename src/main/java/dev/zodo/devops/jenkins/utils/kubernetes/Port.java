@@ -1,9 +1,12 @@
 package dev.zodo.devops.jenkins.utils.kubernetes;
 
-import lombok.Builder;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-@Builder
+@Accessors(fluent = true, prefix = "")
+@Data(staticConstructor = "of")
 public class Port implements BuildString {
+    boolean sortByName;
     @FieldProperty
     String name;
     @FieldProperty

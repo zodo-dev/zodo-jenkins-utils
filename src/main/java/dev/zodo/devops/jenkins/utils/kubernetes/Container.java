@@ -1,6 +1,7 @@
 package dev.zodo.devops.jenkins.utils.kubernetes;
 
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -9,7 +10,9 @@ import java.util.List;
 
 @Setter
 @Accessors(fluent = true, prefix = "")
+@Data(staticConstructor = "of")
 public class Container implements BuildString {
+    boolean sortByName;
     @FieldProperty
     final String name;
     @FieldProperty
@@ -53,19 +56,15 @@ public class Container implements BuildString {
     @FieldProperty
     String workingDir;
 
-    Container(String name) {
-        this.name = name;
-    }
-
     public Container port(String portName, Integer containerPort, Integer hostPort) {
         if (ports == null) {
             ports = new ArrayList<>();
         }
-        Port port = Port.builder()
+        Port port = Port.of()
+                .sortByName(sortByName)
                 .name(portName)
                 .containerPort(containerPort)
-                .hostPort(hostPort)
-                .build();
+                .hostPort(hostPort);
         ports.add(port);
         return this;
     }

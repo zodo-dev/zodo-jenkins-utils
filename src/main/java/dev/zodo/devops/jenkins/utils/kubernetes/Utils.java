@@ -2,6 +2,7 @@ package dev.zodo.devops.jenkins.utils.kubernetes;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -50,4 +51,6 @@ public interface Utils {
         return Arrays.stream(str.split("\n")).map(line -> strPad + line)
                 .collect(Collectors.joining("\n"));
     }
+
+    static Comparator<Field> identityComparator = (p1, p2) -> 0;
 }
