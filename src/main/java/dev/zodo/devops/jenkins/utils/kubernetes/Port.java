@@ -6,7 +6,8 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true, prefix = "")
 @Data(staticConstructor = "of")
 public class Port implements BuildString {
-    boolean sortByName;
+    Boolean sortByName;
+    Boolean allowWrap = false;
     @FieldProperty
     String name;
     @FieldProperty
@@ -19,8 +20,4 @@ public class Port implements BuildString {
         return 0;
     }
 
-    @Override
-    public boolean allowWrap() {
-        return false;
-    }
 }

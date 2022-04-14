@@ -12,14 +12,15 @@ public interface BuildString {
     }
 
     default String buildString(boolean wrap) {
-        String tplFormat = templateFormat();
-        Comparator<Field> sortBy = this.sortByName() ? Comparator.comparing(Field::getName) : Utils.identityComparator;
+        String tplFormat = templateFormat(wrap);
+        Comparator<Field> sortBy = Boolean.FALSE.equals(this.sortByName()) ? Utils.identityComparator : Comparator.comparing(Field::getName);
+        int indentSize = wrap && this.allowWrap() ? this.indentSize() : 0;
         String str = Utils.indent(Stream.of(this.getClass().getDeclaredFields())
                 .filter(f -> f.isAnnotationPresent(FieldProperty.class))
                 .sorted(sortBy)
-                .map(f -> Utils.convertValue(f, this, wrap && this.allowWrap()))
+                .map(f -> Utils.convertValue(f, this, wrap && this.allowWrap(), this.wrapChar(), indentSize))
                 .filter(Objects::nonNull)
-                .collect(Collectors.joining(wrap && this.allowWrap() ? ",\n" : ", ")), this.indentSize());
+                .collect(Collectors.joining(wrap ? "," + wrapChar() : ", ")), indentSize);
         return tplFormat == null ? str : String.format(tplFormat, str);
     }
 
@@ -27,15 +28,19 @@ public interface BuildString {
         return 2;
     }
 
-    default boolean allowWrap() {
+    default Boolean allowWrap() {
         return true;
     }
 
-    default String templateFormat() {
+    default String templateFormat(boolean wrap) {
         return null;
     }
 
-    default boolean sortByName() {
+    default Boolean sortByName() {
         return false;
+    }
+
+    default String wrapChar() {
+        return this.allowWrap() ? "\n" : "";
     }
 }

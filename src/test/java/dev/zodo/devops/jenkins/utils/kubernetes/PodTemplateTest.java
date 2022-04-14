@@ -1,13 +1,16 @@
 package dev.zodo.devops.jenkins.utils.kubernetes;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class PodTemplateTest {
 
-    @Test
-    public void testPodTemplate() {
+    @ParameterizedTest(name = "testPodTemplate wrap: {0}")
+    @ValueSource(booleans = {false, true})
+    public void testPodTemplate(boolean wrap) {
         PodTemplate podTemplate = PodTemplate.of()
-                .sortByName(true);
+                .sortByName(true)
+                .allowWrap(wrap);
         podTemplate
                 .container(
                         Container.of("meteor")
@@ -28,8 +31,10 @@ class PodTemplateTest {
                 .volume(ConfigMapVolume.of()
                         .mountPath("abc")
                         .subPath("/"))
+                .annotation("name", "John")
+                .annotation("lastName", "Wick")
         ;
-        System.out.println(podTemplate.buildString());
+        System.out.println(podTemplate.buildString(wrap));
     }
 
 }

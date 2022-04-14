@@ -12,7 +12,8 @@ import java.util.List;
 @Accessors(fluent = true, prefix = "")
 @Data(staticConstructor = "of")
 public class Container implements BuildString {
-    boolean sortByName;
+    Boolean sortByName;
+    Boolean allowWrap;
     @FieldProperty
     final String name;
     @FieldProperty
@@ -70,7 +71,8 @@ public class Container implements BuildString {
     }
 
     @Override
-    public String templateFormat() {
-        return "containerTemplate(\n%s\n)";
+    public String templateFormat(boolean wrap) {
+        String wrapChar = wrap ? wrapChar() : "";
+        return String.format("containerTemplate(%s%%s%s)", wrapChar, wrapChar);
     }
 }

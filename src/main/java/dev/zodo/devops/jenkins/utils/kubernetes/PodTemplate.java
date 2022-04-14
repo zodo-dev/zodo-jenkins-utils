@@ -7,22 +7,35 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Setter
 @Accessors(prefix = "", fluent = true)
 @Data(staticConstructor = "of")
 public class PodTemplate implements BuildString {
-    boolean sortByName;
+    Boolean sortByName = true;
+    Boolean allowWrap = true;
 
     @FieldProperty
     String inheritFrom = "default";
 
     @FieldProperty
+    Integer activeDeadlineSeconds;
+
+    @FieldProperty
+    Map<String, String> annotations;
+
+    @FieldProperty
+    String cloud;
+
+    @FieldProperty
     @Setter(AccessLevel.NONE)
     List<Container> containers;
 
+    @FieldProperty
     List<EnvVars> envVars;
     @FieldProperty
     Boolean hostNetwork;
@@ -73,7 +86,13 @@ public class PodTemplate implements BuildString {
         if (containers == null) {
             containers = new ArrayList<>();
         }
-        containers.add(container.sortByName(sortByName));
+        if (container.sortByName == null) {
+            container.sortByName(sortByName);
+        }
+        if (container.allowWrap == null) {
+            container.allowWrap(allowWrap);
+        }
+        containers.add(container);
         return this;
     }
 
@@ -95,9 +114,18 @@ public class PodTemplate implements BuildString {
         return this;
     }
 
+    public PodTemplate annotation(String key, String value) {
+        if (annotations == null) {
+            annotations = new LinkedHashMap<>();
+        }
+        annotations.put(key, value);
+        return this;
+    }
+
     @Override
-    public String templateFormat() {
-        return "podTemplate([\n%s\n])";
+    public String templateFormat(boolean wrap) {
+        String wrapChar = wrap ? wrapChar() : "";
+        return String.format("podTemplate([%s%%s%s])", wrapChar, wrapChar);
     }
 
 }
