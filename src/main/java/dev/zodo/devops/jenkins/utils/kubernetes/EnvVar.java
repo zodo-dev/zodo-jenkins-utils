@@ -6,19 +6,15 @@ import lombok.experimental.Accessors;
 
 @Accessors(fluent = true, prefix = "")
 @Data(staticConstructor = "of")
-public class Port implements BuildString {
-    Boolean sortByName;
+public class EnvVar implements BuildString {
     Boolean allowWrap = false;
     @FieldProperty
-    String name;
+    final String key;
     @FieldProperty
-    Integer containerPort;
-    @FieldProperty
-    Integer hostPort;
-
-    @Override
-    public int indentSize() {
-        return 0;
-    }
-
+    final String value;
+//    @Override
+//    public String templateFormat(boolean wrap) {
+//        String wrapChar = wrap ? wrapChar() : "";
+//        return String.format("[%s%%s%s]", wrapChar, wrapChar);
+//    }
 }

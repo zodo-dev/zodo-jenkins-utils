@@ -1,14 +1,18 @@
 package dev.zodo.devops.jenkins.utils.kubernetes;
 
-import lombok.*;
+import dev.zodo.devops.jenkins.utils.kubernetes.annotations.FieldProperty;
+import dev.zodo.devops.jenkins.utils.kubernetes.interfaces.Volume;
+import lombok.Data;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Setter
 @Accessors(fluent = true, prefix = "")
 @Data(staticConstructor = "of")
-public class EmptyDirVolume implements Volume {
+public class VolumeEmptyDir implements Volume {
     @FieldProperty
     String mountPath;
+
     @FieldProperty
     Boolean memory = false;
 }

@@ -1,18 +1,24 @@
 package dev.zodo.devops.jenkins.utils.kubernetes;
 
-import lombok.*;
+import dev.zodo.devops.jenkins.utils.kubernetes.annotations.FieldProperty;
+import dev.zodo.devops.jenkins.utils.kubernetes.interfaces.Volume;
+import lombok.Data;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Setter
 @Accessors(fluent = true, prefix = "")
 @Data(staticConstructor = "of")
-public class DynamicPvcVolume implements Volume {
+public class VolumeDynamicPvc implements Volume {
     @FieldProperty
     String mountPath;
+
     @FieldProperty
     String accessModes;
+
     @FieldProperty
     String requestsSize;
+
     @FieldProperty
     String storageClassName;
 }

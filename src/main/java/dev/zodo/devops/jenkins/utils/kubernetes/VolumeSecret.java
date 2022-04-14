@@ -1,24 +1,24 @@
 package dev.zodo.devops.jenkins.utils.kubernetes;
 
 import dev.zodo.devops.jenkins.utils.kubernetes.annotations.FieldProperty;
+import dev.zodo.devops.jenkins.utils.kubernetes.interfaces.Volume;
 import lombok.Data;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
+@Setter
 @Accessors(fluent = true, prefix = "")
 @Data(staticConstructor = "of")
-public class Port implements BuildString {
-    Boolean sortByName;
-    Boolean allowWrap = false;
+public class VolumeSecret implements Volume {
     @FieldProperty
-    String name;
-    @FieldProperty
-    Integer containerPort;
-    @FieldProperty
-    Integer hostPort;
+    String mountPath;
 
-    @Override
-    public int indentSize() {
-        return 0;
-    }
+    @FieldProperty
+    String secretName;
 
+    @FieldProperty
+    String defaultMode;
+
+    @FieldProperty
+    Boolean optional;
 }

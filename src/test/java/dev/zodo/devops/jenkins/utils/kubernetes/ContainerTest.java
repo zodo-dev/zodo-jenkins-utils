@@ -11,6 +11,6 @@ class ContainerTest {
                 .privileged(true)
                 .port("http", 80, 8080)
                 .port("https", 443, 8443);
-        System.out.println(container.buildString());
+        System.out.println(container.buildString(true));
     }
 }

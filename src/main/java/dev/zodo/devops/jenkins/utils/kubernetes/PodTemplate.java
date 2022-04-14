@@ -1,6 +1,11 @@
 package dev.zodo.devops.jenkins.utils.kubernetes;
 
 
+import dev.zodo.devops.jenkins.utils.kubernetes.annotations.FieldProperty;
+import dev.zodo.devops.jenkins.utils.kubernetes.enums.MergeStrategy;
+import dev.zodo.devops.jenkins.utils.kubernetes.enums.PodRetention;
+import dev.zodo.devops.jenkins.utils.kubernetes.interfaces.Volume;
+import dev.zodo.devops.jenkins.utils.kubernetes.interfaces.WorkspaceVolume;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -26,6 +31,7 @@ public class PodTemplate implements BuildString {
     Integer activeDeadlineSeconds;
 
     @FieldProperty
+    @Setter(AccessLevel.NONE)
     Map<String, String> annotations;
 
     @FieldProperty
@@ -36,49 +42,67 @@ public class PodTemplate implements BuildString {
     List<Container> containers;
 
     @FieldProperty
-    List<EnvVars> envVars;
+    EnvVars envVars;
+
     @FieldProperty
     Boolean hostNetwork;
+
     @FieldProperty
     List<String> imagePullSecrets;
+
     @FieldProperty
     Integer instanceCap;
+
     @FieldProperty
     String name;
+
     @FieldProperty
     String namespace;
+
     @FieldProperty
     String nodeSelector;
+
     @FieldProperty
     String nodeUsageMode;
-    // TODO Implement
-    //String podRetention;
+
+    @FieldProperty
+    PodRetention podRetention;
+
     @FieldProperty
     String runAsGroup;
+
     @FieldProperty
     String runAsUser;
+
     @FieldProperty
     String schedulerName;
+
     @FieldProperty
     String serviceAccount;
+
     @FieldProperty
     Boolean showRawYaml;
+
     @FieldProperty
     String slaveConnectTimeout;
+
     @FieldProperty
     String supplementalGroups;
 
     @FieldProperty
     List<Volume> volumes;
+
     @FieldProperty
     String workingDir;
-    // TODO Implement
-    // String workspaceVolume;
+
+    @FieldProperty
+    WorkspaceVolume workspaceVolume;
+
     @FieldProperty
     String yaml;
 
     @FieldProperty
-    String yamlMergeStrategy = "merge";
+    MergeStrategy yamlMergeStrategy = MergeStrategy.MERGE;
 
     String label = "POD_LABEL";
 

@@ -1,5 +1,6 @@
 package dev.zodo.devops.jenkins.utils.kubernetes;
 
+import dev.zodo.devops.jenkins.utils.kubernetes.annotations.FieldProperty;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;

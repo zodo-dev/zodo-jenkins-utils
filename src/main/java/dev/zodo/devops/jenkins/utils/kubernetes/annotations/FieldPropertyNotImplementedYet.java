@@ -1,8 +1,8 @@
-package dev.zodo.devops.jenkins.utils.kubernetes;
+package dev.zodo.devops.jenkins.utils.kubernetes.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FieldProperty {
+public @interface FieldPropertyNotImplementedYet {
 }
