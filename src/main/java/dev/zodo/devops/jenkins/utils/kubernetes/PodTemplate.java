@@ -8,6 +8,7 @@ import dev.zodo.devops.jenkins.utils.kubernetes.interfaces.Volume;
 import dev.zodo.devops.jenkins.utils.kubernetes.interfaces.WorkspaceVolume;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -32,6 +33,7 @@ public class PodTemplate implements BuildString {
 
     @FieldProperty
     @Setter(AccessLevel.NONE)
+    @Getter(AccessLevel.NONE)
     Map<String, String> annotations;
 
     @FieldProperty
@@ -39,6 +41,7 @@ public class PodTemplate implements BuildString {
 
     @FieldProperty
     @Setter(AccessLevel.NONE)
+    @Getter(AccessLevel.NONE)
     List<Container> containers;
 
     @FieldProperty

@@ -21,13 +21,13 @@ public interface BuildString {
     default String buildString(boolean wrap) {
         String tplFormat = templateFormat(wrap);
         Comparator<KeyValueData> sortBy = Boolean.FALSE.equals(this.sortByName()) ? Utils.identityComparator : Comparator.comparing(KeyValueData::getKey);
-        int indentSize = wrap && this.allowWrap() ? this.indentSize() : 0;
+        int indentSize = wrap && this.checkAllowWrap() ? this.indentSize() : 0;
         warnFieldPropertyNotImplementedYet();
         String str = Utils.indent(getFieldProperty().stream()
                 .sorted(sortBy)
-                .map(kvd -> Utils.convertValue(kvd.getKey(), kvd.getValue(), wrap && this.allowWrap(), this.wrapChar(), indentSize))
+                .map(kvd -> Utils.convertValue(kvd.getKey(), kvd.getValue(), wrap && this.checkAllowWrap(), this.wrapChar(), indentSize))
                 .filter(Objects::nonNull)
-                .collect(Collectors.joining(wrap && this.allowWrap() ? "," + wrapChar() : ", ")), indentSize);
+                .collect(Collectors.joining(wrap && this.checkAllowWrap() ? "," + wrapChar() : ", ")), indentSize);
         return tplFormat == null ? str : String.format(tplFormat, str);
     }
 
@@ -62,6 +62,10 @@ public interface BuildString {
         return true;
     }
 
+    default boolean checkAllowWrap() {
+        return !Boolean.FALSE.equals(this.allowWrap());
+    }
+
     default String templateFormat(boolean wrap) {
         return null;
     }
@@ -71,6 +75,6 @@ public interface BuildString {
     }
 
     default String wrapChar() {
-        return this.allowWrap() ? "\n" : "";
+        return Boolean.FALSE.equals(this.allowWrap()) ? "" : "\n";
     }
 }

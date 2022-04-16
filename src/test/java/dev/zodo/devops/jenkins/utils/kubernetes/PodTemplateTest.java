@@ -2,9 +2,7 @@ package dev.zodo.devops.jenkins.utils.kubernetes;
 
 import dev.zodo.devops.jenkins.utils.kubernetes.enums.MergeStrategy;
 import dev.zodo.devops.jenkins.utils.kubernetes.enums.PodRetention;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -13,8 +11,8 @@ import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInA
 
 class PodTemplateTest {
 
-    @ParameterizedTest(name = "testPodTemplate wrap: {0}")
-    @ValueSource(booleans = {false, true})
+    //@ParameterizedTest(name = "testPodTemplate wrap: {0}")
+    //@ValueSource(booleans = {false, true})
     public void testPodTemplate(boolean wrap) {
         PodTemplate podTemplate = PodTemplate.of()
                 .sortByName(true)
@@ -68,6 +66,29 @@ class PodTemplateTest {
                 )
         ;
         System.out.println(podTemplate.buildString(false));
+    }
+
+    @Test
+    public void testPodContainer() {
+        PodTemplate podTemplate = PodTemplate.of()
+                .sortByName(true)
+                .allowWrap(true);
+        podTemplate
+                .container(
+                        Container.of("meteor")
+                                .command("cmd")
+                                .args("2d")
+                                .privileged(true)
+                                .port("http", 80, 8080)
+                                .port("https", 443, 8443))
+                .container(Container.of("docker")
+                        .command("cmd")
+                        .args("2d")
+                        .privileged(true)
+                        .port("http", 80, 8080)
+                        .port("https", 443, 8443))
+        ;
+        System.out.println(podTemplate.buildString(true));
     }
 
 

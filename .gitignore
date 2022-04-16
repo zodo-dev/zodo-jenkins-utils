@@ -13,3 +13,6 @@ buildNumber.properties
 # IntelliJ project files
 .idea
 *.iml
+lib/
+build/
+.gradle/
