@@ -3,6 +3,8 @@ package dev.zodo.devops.jenkins.utils.kubernetes;
 import dev.zodo.devops.jenkins.utils.kubernetes.enums.MergeStrategy;
 import dev.zodo.devops.jenkins.utils.kubernetes.enums.PodRetention;
 import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
@@ -11,8 +13,8 @@ import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInA
 
 class PodTemplateTest {
 
-    //@ParameterizedTest(name = "testPodTemplate wrap: {0}")
-    //@ValueSource(booleans = {false, true})
+    @ParameterizedTest(name = "testPodTemplate wrap: {0}")
+    @ValueSource(booleans = {false, true})
     public void testPodTemplate(boolean wrap) {
         PodTemplate podTemplate = PodTemplate.of()
                 .sortByName(true)

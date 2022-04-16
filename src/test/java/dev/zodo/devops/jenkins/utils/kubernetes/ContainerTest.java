@@ -1,6 +1,6 @@
 package dev.zodo.devops.jenkins.utils.kubernetes;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 class ContainerTest {
     @Test
