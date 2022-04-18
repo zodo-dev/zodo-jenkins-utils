@@ -1,0 +1,4 @@
+def testMsg = {
+  msg ->
+    msg
+}
