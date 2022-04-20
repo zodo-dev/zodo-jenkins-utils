@@ -7,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum PodRetention implements EnumValue {
-    ALWAYS("always"),
-    DEFAULT("default"),
-    NEVER("never"),
-    ON_FAILURE("onFailure");
+    ALWAYS("always()"),
+    DEFAULT("default()"),
+    NEVER("never()"),
+    ON_FAILURE("onFailure()");
 
     private final String value;
 }

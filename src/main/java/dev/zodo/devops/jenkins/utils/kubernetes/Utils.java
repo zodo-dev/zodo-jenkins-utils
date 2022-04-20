@@ -27,14 +27,14 @@ public interface Utils {
             return ((BuildString) value).buildString(wrap);
         }
         if (value instanceof EnumValue) {
-            return String.format("'%s'", ((EnumValue) value).getValue());
+            return String.format("%s", ((EnumValue) value).getValue());
         }
         if (value instanceof List) {
             List<?> buildStrings = (List<?>) value;
             String formatedValue = buildStrings.stream()
-                    .map(v -> String.format("[%s]", extractValue(v, wrap, wrapChar, indentSize)))
+                    .map(v -> String.format("%s", extractValue(v, wrap, wrapChar, indentSize)))
                     .collect(Collectors.joining(String.format(",%s", wrapChar)));
-            return String.format("%s%s", wrapChar, indent(formatedValue, indentSize));
+            return String.format("[%s%s%s]", wrapChar, indent(formatedValue, indentSize), wrapChar);
         }
         return String.format("'%s'", value);
     }
