@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum MergeStrategy implements EnumValue {
-    MERGE("merge"),
-    OVERRIDE("override");
+    MERGE("merge()"),
+    OVERRIDE("override()");
 
     private final String value;
 }
