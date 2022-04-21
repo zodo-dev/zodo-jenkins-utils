@@ -10,6 +10,9 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true, prefix = "")
 @Data(staticConstructor = "of")
 public class WorkspaceVolumeEmptyDir implements WorkspaceVolume {
+
+    private final String dslName = "emptyDirWorkspaceVolume";
+
     @FieldProperty
     Boolean memory = false;
 }

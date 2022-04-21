@@ -8,6 +8,9 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true, prefix = "")
 @Data(staticConstructor = "of")
 public class VolumeConfigMap implements Volume {
+
+    private final String dslName = "configMapVolume";
+
     @FieldProperty
     String mountPath;
 

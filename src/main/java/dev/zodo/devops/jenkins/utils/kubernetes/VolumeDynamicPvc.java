@@ -10,6 +10,9 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true, prefix = "")
 @Data(staticConstructor = "of")
 public class VolumeDynamicPvc implements Volume {
+
+    private final String dslName = "dynamicPVC";
+
     @FieldProperty
     String mountPath;
 

@@ -11,6 +11,8 @@ import lombok.experimental.Accessors;
 @Data(staticConstructor = "of")
 public class WorkspaceVolumeDynamicPvc implements WorkspaceVolume {
 
+    private final String dslName = "dynamicPVC";
+
     @FieldProperty
     String accessModes;
 

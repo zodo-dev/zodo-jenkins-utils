@@ -10,6 +10,9 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true, prefix = "")
 @Data(staticConstructor = "of")
 public class WorkspaceVolumePersistentVolumeClaim implements Volume {
+
+    private final String dslName = "persistentVolumeClaimWorkspaceVolume";
+
     @FieldProperty
     String claimName;
 

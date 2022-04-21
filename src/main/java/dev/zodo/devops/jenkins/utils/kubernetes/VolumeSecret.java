@@ -10,6 +10,9 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true, prefix = "")
 @Data(staticConstructor = "of")
 public class VolumeSecret implements Volume {
+
+    private final String dslName = "secretVolume";
+
     @FieldProperty
     String mountPath;
 
