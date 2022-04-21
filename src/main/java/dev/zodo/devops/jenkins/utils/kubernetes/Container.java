@@ -22,9 +22,9 @@ public class Container implements BuildString {
     @FieldProperty
     Boolean alwaysPullImage;
     @FieldProperty
-    String args = "2d";
+    String args;
     @FieldProperty
-    String command = "sleep";
+    String command;
     @FieldProperty
     EnvVars envVars;
     // TODO Implement
